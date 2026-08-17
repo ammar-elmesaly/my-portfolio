@@ -7,8 +7,9 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ title, className }: SectionHeadingProps) {
   return (
-    <h2 className={cn("text-2xl font-semibold tracking-tight", className)}>
-      {title}
-    </h2>
+    <div className={cn("flex items-center gap-3", className)}>
+      <span className="h-5 w-1 rounded-full bg-primary" />
+      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+    </div>
   );
 }

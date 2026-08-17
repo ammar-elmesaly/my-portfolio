@@ -1,15 +1,36 @@
+import type { IconType } from "react-icons";
+import {
+  SiTypescript,
+  SiJavascript,
+  SiRust,
+  SiNodedotjs,
+  SiNestjs,
+  SiExpress,
+  SiTypeorm,
+  SiReact,
+  SiElectron,
+  SiPostgresql,
+  SiMongodb,
+  SiMongoose,
+  SiDocker,
+  SiGit,
+  SiLinux,
+  SiNextdotjs,
+} from "react-icons/si";
+
 export interface Project {
   title: string;
   description: string;
   tags: string[];
   link: string;
-  /** Screenshot path under /public, e.g. "/projects/installments.png". */
   image?: string;
 }
 
-export interface SkillGroup {
-  category: string;
-  items: string[];
+export interface Skill {
+  name: string;
+  description: string;
+  icon: IconType;
+  level: number;
 }
 
 export interface Contribution {
@@ -36,44 +57,34 @@ export const PORTFOLIO_DATA = {
         "Installments is a backend installment and receivables management API.",
       tags: ["NestJS", "TypeORM", "PostgreSQL", "Docker"],
       link: "https://github.com/ammar-elmesaly/Installments-System",
-      // TODO: add a real screenshot, e.g. "/projects/installments.png"
     },
     {
       title: "DVLD System Engine",
       description: "Desktop & Backend infrastructure for licensing automation.",
       tags: ["Node.js", "TypeORM", "PostgreSQL", "Electron"],
       link: "https://github.com/ammar-elmesaly/dvld-app",
-      // TODO: add a real screenshot, e.g. "/projects/dvld.png"
     },
   ] satisfies Project[],
 
-  // Derived from the stacks used across the projects above — keep this
-  // in sync when a project introduces a technology not listed here.
   skills: [
-    {
-      category: "Languages",
-      items: ["TypeScript", "JavaScript", "Rust"],
-    },
-    {
-      category: "Backend",
-      items: ["Node.js", "NestJS", "Express.js", "TypeORM", "REST APIs"],
-    },
-    {
-      category: "Frontend & Desktop",
-      items: ["Next.js", "React.js", "Electron.js"],
-    },
-    {
-      category: "Database",
-      items: ["PostgreSQL", "MongoDB", "Mongoose"],
-    },
-    {
-      category: "Tools & Infrastructure",
-      items: ["Docker", "Git", "Linux", "CLI", "monorepo"],
-    },
-  ] satisfies SkillGroup[],
+    { name: "NestJS", description: "Structured, opinionated Node.js framework for scalable APIs.", icon: SiNestjs, level: 4 },
+    { name: "Node.js", description: "Runs JavaScript server-side for fast, event-driven backends.", icon: SiNodedotjs, level: 5 },
+    { name: "TypeScript", description: "Static typing on top of JavaScript for safer, more maintainable code.", icon: SiTypescript, level: 5 },
+    { name: "PostgreSQL", description: "Relational database for transactional, structured data.", icon: SiPostgresql, level: 4 },
+    { name: "Next.js", description: "React framework for production-grade web applications.", icon: SiNextdotjs, level: 3 },
+    { name: "React", description: "Component-based library for building interactive UIs.", icon: SiReact, level: 4 },
+    { name: "TypeORM", description: "TypeScript ORM mapping classes directly to SQL tables.", icon: SiTypeorm, level: 5 },
+    { name: "MongoDB", description: "Document database for flexible, schema-less data.", icon: SiMongodb, level: 4 },
+    { name: "Mongoose", description: "Schema-based modeling layer for MongoDB in Node.js.", icon: SiMongoose, level: 4 },
+    { name: "JavaScript", description: "The language every part of this stack ultimately runs on.", icon: SiJavascript, level: 5 },
+    { name: "Rust", description: "Systems programming with memory safety and no garbage collector.", icon: SiRust, level: 2 },
+    { name: "Express.js", description: "Minimal, unopinionated web framework for Node.js.", icon: SiExpress, level: 4 },
+    { name: "Electron", description: "Ships web apps as cross-platform desktop applications.", icon: SiElectron, level: 3 },
+    { name: "Docker", description: "Packages apps and dependencies into portable containers.", icon: SiDocker, level: 3 },
+    { name: "Git", description: "Version control for tracking and collaborating on code.", icon: SiGit, level: 4 },
+    { name: "Linux", description: "Primary development and deployment environment.", icon: SiLinux, level: 5 },
+  ] satisfies Skill[],
 
-  // Real open-source contributions only. Add an entry here once a PR
-  // has actually landed — this section is meant to stay verifiable.
   contributions: [
     {
       repo: "hnasheralneam/prayertimes",

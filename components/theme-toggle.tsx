@@ -10,7 +10,6 @@ export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // Avoid a hydration mismatch: resolvedTheme is unknown on the server.
   React.useEffect(() => setMounted(true), []);
 
   return (

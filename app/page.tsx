@@ -6,6 +6,7 @@ import { PORTFOLIO_DATA } from "@/data/portfolio";
 import personalImg from "@/public/personal_image.jpg";
 import { SectionHeading } from "@/components/section-heading";
 import { ProjectCard } from "@/components/project-card";
+import { SkillCard } from "@/components/skill-card";
 import { ContributionCard } from "@/components/contribution-card";
 import { ButtonLink } from "@/components/ui/button-link";
 
@@ -27,7 +28,7 @@ export default function Home() {
           <div className="flex gap-3 justify-center md:justify-start pt-2">
             <ButtonLink
               href={`mailto:${PORTFOLIO_DATA.socials.email}`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-base font-medium hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3.5 py-2 text-base font-medium hover:bg-primary/85 hover:no-underline transition-colors"
             >
               <Mail className="size-4" /> Contact
             </ButtonLink>
@@ -68,24 +69,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Skills */}
       <section id="skills" className="bg-muted/40 border-y border-border scroll-mt-16">
         <div className="max-w-5xl mx-auto px-6 space-y-6 py-16">
           <SectionHeading title="Skills" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {PORTFOLIO_DATA.skills.map((group) => (
-              <div key={group.category} className="space-y-2">
-                <h3 className="text-base font-medium">{group.category}</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded bg-background px-2 py-0.5 font-mono text-sm text-muted-foreground"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            {PORTFOLIO_DATA.skills.map((skill) => (
+              <SkillCard key={skill.name} skill={skill} />
             ))}
           </div>
         </div>
