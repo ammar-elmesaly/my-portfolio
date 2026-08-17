@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start py-20 border-b-4">
+      <section className="relative max-w-5xl mx-auto px-6 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start py-20">
         <div className="flex-1 space-y-4">
           <h1 className="text-5xl font-bold tracking-tight text-center md:text-left">
             {PORTFOLIO_DATA.name}
@@ -57,6 +57,7 @@ export default function Home() {
             className="rounded-full object-cover border-6 border-slate-400 dark:border-slate-50 shadow-lg"
           />
         </div>
+        <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-linear-to-r from-transparent via-zinc-300 dark:via-zinc-700 to-transparent" />
       </section>
 
       {/* Projects */}
@@ -98,19 +99,21 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="max-w-5xl mx-auto px-6 space-y-6 py-16 pb-24 scroll-mt-16">
-        <SectionHeading title="Contact" />
-        <p className="text-base text-muted-foreground max-w-md">
-          Open to internships and collaboration. Reach out directly and I'll get back
-          to you.
-        </p>
-        <div className="flex gap-3">
-          <ButtonLink
-            href={`mailto:${PORTFOLIO_DATA.socials.email}`}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3.5 py-2 text-base font-medium hover:bg-primary/80 transition-colors"
-          >
-            <Mail className="size-4" /> {PORTFOLIO_DATA.socials.email}
-          </ButtonLink>
+      <section id="contact" className="bg-muted/40 border-y border-border scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-6 space-y-6 py-16">
+          <SectionHeading title="Contact" />
+          <p className="text-base text-muted-foreground max-w-md">
+            Open to internships and collaboration. Reach out directly and I'll get back
+            to you.
+          </p>
+          <div className="flex gap-3">
+            <ButtonLink
+              href={`mailto:${PORTFOLIO_DATA.socials.email}`}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3.5 py-2 text-base font-medium hover:bg-primary/80 transition-colors"
+            >
+              <Mail className="size-4" /> {PORTFOLIO_DATA.socials.email}
+            </ButtonLink>
+          </div>
         </div>
       </section>
     </main>
