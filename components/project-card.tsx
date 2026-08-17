@@ -10,17 +10,19 @@ export function ProjectCard({ project }: { project: Project }) {
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="block focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
+      className="block group focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
     >
       <Card className="h-full transition-colors hover:ring-primary/40">
         {project.image ? (
-          <Image
-            src={project.image}
-            alt={`Screenshot of ${project.title}`}
-            width={640}
-            height={360}
-            className="aspect-video w-full object-cover"
-          />
+          <div className="aspect-video w-full rounded-t-xl overflow-hidden">
+            <Image
+              src={project.image}
+              alt={`Screenshot of ${project.title}`}
+              width={640}
+              height={360}
+              className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+            />
+          </div>
         ) : (
           <div className="flex aspect-video w-full items-center justify-center rounded-t-xl bg-muted">
             <FolderGit2 className="size-8 text-muted-foreground/40" />

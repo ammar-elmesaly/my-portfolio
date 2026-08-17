@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start py-20">
+      <section className="max-w-5xl mx-auto px-6 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start py-20 border-b-4">
         <div className="flex-1 space-y-4">
           <h1 className="text-5xl font-bold tracking-tight text-center md:text-left">
             {PORTFOLIO_DATA.name}

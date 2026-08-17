@@ -57,12 +57,55 @@ export const PORTFOLIO_DATA = {
         "Installments is a backend installment and receivables management API.",
       tags: ["NestJS", "TypeORM", "PostgreSQL", "Docker"],
       link: "https://github.com/ammar-elmesaly/Installments-System",
+      image: "/installments-system.png"
     },
     {
-      title: "DVLD System Engine",
-      description: "Desktop & Backend infrastructure for licensing automation.",
-      tags: ["Node.js", "TypeORM", "PostgreSQL", "Electron"],
+      title: "DVLD Desktop & API Platform",
+      description:
+        "A full-stack monorepo management platform featuring an Electron client, Express backend with TypeORM, and a shared TypeScript package for strict DTO and type safety across client and server.",
+      tags: ["TypeScript", "Electron", "React", "Node.js", "TypeORM", "PostgreSQL"],
       link: "https://github.com/ammar-elmesaly/dvld-app",
+      image: "/dvld.png",
+    },
+    {
+      title: "Quran API",
+      description:
+        "A RESTful API for programmatically accessing Quranic text, tafsirs, and managing saved verses.",
+      tags: ["Node.js", "Express.js", "PostgreSQL", "JWT", "Docker"],
+      link: "https://github.com/ammar-elmesaly/quran-api",
+      image: "/quran-api.png",
+    },
+    {
+      title: "Kalimat",
+      description:
+        "An Arabic adaptation of Wordle built with Godot 4, featuring full word-checking logic and localized UI.",
+      tags: ["Godot", "GDScript", "Game Dev"],
+      link: "https://github.com/ammar-elmesaly/Kalimat",
+      image: "/kalimat.png",
+    },
+    {
+      title: "Blog App",
+      description:
+        "A full-stack blogging platform featuring session-based authentication, CRUD operations for posts, nested commenting, post/comment likes, and custom avatar uploads.",
+      tags: ["Node.js", "Express.js", "MongoDB", "Mongoose", "Pug", "JavaScript"],
+      link: "https://github.com/ammar-elmesaly/blog-app",
+      image: "/blog-app.png",
+    },
+    {
+      title: "Light Pomodoro",
+      description:
+        "A full-stack Pomodoro application with client-driven countdown logic, stateless REST session management, and server-side pause/resume tracking with MongoDB.",
+      tags: ["TypeScript", "Node.js", "Express.js", "MongoDB", "Mongoose"],
+      link: "https://github.com/ammar-elmesaly/Light-Pomodoro",
+      image: "/light-pomodoro.png",
+    },
+    {
+      title: "RusDo",
+      description:
+        "A minimalist terminal-based to-do list CLI tool featuring interactive TUI navigation, SQLite persistence, and modular event loop architecture.",
+      tags: ["Rust", "Ratatui", "Crossterm", "SQLite", "CLI"],
+      link: "https://github.com/ammar-elmesaly/RusDo",
+      image: "/rusdo.png",
     },
   ] satisfies Project[],
 
