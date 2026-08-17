@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
+import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex-1">{children}</div>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
