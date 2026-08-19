@@ -1,16 +1,16 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowUpRight, FolderGit2 } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Project } from "@/data/portfolio";
+import { HoverLiftLink } from "./motion/hover-lift-link";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <a
+    <HoverLiftLink
       href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block group focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
+      className="block focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
     >
       <Card className="h-full transition-colors hover:ring-primary/40">
         {project.image ? (
@@ -48,6 +48,6 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         </CardContent>
       </Card>
-    </a>
+    </HoverLiftLink>
   );
 }

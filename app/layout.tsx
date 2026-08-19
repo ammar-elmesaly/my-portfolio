@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
+import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -37,9 +38,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
+          <MotionConfig reducedMotion="user">
+            <Navbar />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </MotionConfig>
         </ThemeProvider>
         <Analytics />
       </body>

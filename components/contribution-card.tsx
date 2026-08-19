@@ -2,13 +2,13 @@ import { GitPullRequest } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Contribution } from "@/data/portfolio";
+import { motion } from "framer-motion";
+import { HoverLiftLink } from "./motion/hover-lift-link";
 
 export function ContributionCard({ contribution }: { contribution: Contribution }) {
   return (
-    <a
+    <HoverLiftLink
       href={contribution.link}
-      target="_blank"
-      rel="noopener noreferrer"
       className="block focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
     >
       <Card className="h-full transition-colors hover:ring-primary/40">
@@ -25,6 +25,6 @@ export function ContributionCard({ contribution }: { contribution: Contribution 
           </span>
         </CardContent>
       </Card>
-    </a>
+    </HoverLiftLink>
   );
 }
