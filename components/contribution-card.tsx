@@ -2,7 +2,6 @@ import { GitPullRequest } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Contribution } from "@/data/portfolio";
-import { motion } from "framer-motion";
 import { HoverLiftLink } from "./motion/hover-lift-link";
 
 export function ContributionCard({ contribution }: { contribution: Contribution }) {

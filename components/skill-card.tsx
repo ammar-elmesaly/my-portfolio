@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Skill } from "@/data/portfolio";
 import { Star } from "lucide-react";
-import { motion } from "framer-motion";
 import { HoverLift } from "./motion/hover-lift";
 
 export function SkillCard({ skill }: { skill: Skill }) {
