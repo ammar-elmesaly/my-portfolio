@@ -47,6 +47,7 @@ export const PORTFOLIO_DATA = {
   socials: {
     github: "https://github.com/ammar-elmesaly",
     email: "contact@elmesaly.dev",
+    youtube: "https://www.youtube.com/@sadeem-code",
     resume: "/resume.pdf",
   },
 

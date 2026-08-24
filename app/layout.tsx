@@ -20,8 +20,39 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${PORTFOLIO_DATA.name} — ${PORTFOLIO_DATA.role}`,
+  metadataBase: new URL('https://elmesaly.dev'),
+  title: {
+    default: `${PORTFOLIO_DATA.name} — ${PORTFOLIO_DATA.role}`,
+    template: `%s | ${PORTFOLIO_DATA.name}`,
+  },
   description: PORTFOLIO_DATA.bio,
+  alternates: {
+    canonical: './',
+  },
+  openGraph: {
+    title: `${PORTFOLIO_DATA.name} — ${PORTFOLIO_DATA.role}`,
+    description: PORTFOLIO_DATA.bio,
+    url: 'https://elmesaly.dev',
+    siteName: PORTFOLIO_DATA.name,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${PORTFOLIO_DATA.name} — ${PORTFOLIO_DATA.role}`,
+    description: PORTFOLIO_DATA.bio,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

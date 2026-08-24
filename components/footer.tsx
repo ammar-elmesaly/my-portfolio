@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { SiGithub } from 'react-icons/si';
+import { SiGithub, SiYoutube } from "react-icons/si";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 export function Footer() {
@@ -18,6 +18,15 @@ export function Footer() {
             className="hover:text-foreground transition-colors"
           >
             <SiGithub className="size-4" />
+          </a>
+          <a
+            href={PORTFOLIO_DATA.socials.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            className="hover:text-foreground transition-colors"
+          >
+            <SiYoutube className="size-4" />
           </a>
           <a
             href={`mailto:${PORTFOLIO_DATA.socials.email}`}

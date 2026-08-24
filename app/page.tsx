@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Mail, FileText } from "lucide-react";
-import { SiGithub } from "react-icons/si";
+import { SiGithub, SiYoutube } from "react-icons/si";
 
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import personalImg from "@/public/personal_image.jpg";
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
           </FadeIn>
           <FadeIn mode="mount" delay={0.3}>
-            <div className="flex gap-3 justify-center md:justify-start pt-2">
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
               <ButtonLink
                 href={`mailto:${PORTFOLIO_DATA.socials.email}`}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-primary text-primary-foreground px-3.5 py-2 text-base font-medium hover:bg-primary/85 hover:no-underline transition-colors"
@@ -52,6 +52,12 @@ export default function Home() {
                 className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-base font-medium hover:bg-muted transition-colors"
               >
                 <SiGithub className="size-4" /> GitHub
+              </ButtonLink>
+              <ButtonLink
+                href={PORTFOLIO_DATA.socials.youtube}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-base text-red-600 font-medium hover:bg-muted transition-colors"
+              >
+                <SiYoutube className="size-4" /> YouTube
               </ButtonLink>
             </div>
           </FadeIn>

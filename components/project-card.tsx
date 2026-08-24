@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <HoverLiftLink
       href={project.link}
-      className="block focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
+      className="block group focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-xl"
     >
       <Card className="h-full transition-colors hover:ring-primary/40">
         {project.image ? (
