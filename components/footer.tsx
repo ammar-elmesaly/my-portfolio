@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
-import { SiGithub, SiYoutube } from "react-icons/si";
+import { SiGithub, SiLinkerd, SiYoutube } from "react-icons/si";
+import { BsLinkedin } from "react-icons/bs";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 export function Footer() {
@@ -10,6 +11,15 @@ export function Footer() {
           &copy; {new Date().getFullYear()} {PORTFOLIO_DATA.name}
         </p>
         <div className="flex items-center gap-4">
+          <a
+            href={PORTFOLIO_DATA.socials.linkedIn}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-foreground transition-colors"
+          >
+            <BsLinkedin className="size-4" />
+          </a>
           <a
             href={PORTFOLIO_DATA.socials.github}
             target="_blank"

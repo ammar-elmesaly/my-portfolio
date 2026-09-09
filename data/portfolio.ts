@@ -24,6 +24,7 @@ export interface Project {
   tags: string[];
   link: string;
   image?: string;
+  demoLink?: string;
 }
 
 export interface Skill {
@@ -48,6 +49,7 @@ export const PORTFOLIO_DATA = {
     github: "https://github.com/ammar-elmesaly",
     email: "contact@elmesaly.dev",
     youtube: "https://www.youtube.com/@sadeem-code",
+    linkedIn: "https://www.linkedin.com/in/ammar-elmesaly/",
     resume: "/resume.pdf",
   },
 
@@ -58,6 +60,7 @@ export const PORTFOLIO_DATA = {
         "Installments is a backend installment and receivables management API.",
       tags: ["NestJS", "TypeORM", "PostgreSQL", "Docker"],
       link: "https://github.com/ammar-elmesaly/Installments-System",
+      demoLink: "https://installments-system.vercel.app",
       image: "/installments-system.png"
     },
     {
