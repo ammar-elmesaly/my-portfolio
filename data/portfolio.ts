@@ -77,6 +77,7 @@ export const PORTFOLIO_DATA = {
         "A RESTful API for programmatically accessing Quranic text, tafsirs, and managing saved verses.",
       tags: ["Node.js", "Express.js", "PostgreSQL", "JWT", "Docker"],
       link: "https://github.com/ammar-elmesaly/quran-api",
+      demoLink: "https://simple-quran-api.vercel.app",
       image: "/quran-api.png",
     },
     {
@@ -101,6 +102,7 @@ export const PORTFOLIO_DATA = {
         "A full-stack Pomodoro application with client-driven countdown logic, stateless REST session management, and server-side pause/resume tracking with MongoDB.",
       tags: ["TypeScript", "Node.js", "Express.js", "MongoDB", "Mongoose"],
       link: "https://github.com/ammar-elmesaly/Light-Pomodoro",
+      demoLink: "https://light-pomodoro.vercel.app",
       image: "/light-pomodoro.png",
     },
     {
