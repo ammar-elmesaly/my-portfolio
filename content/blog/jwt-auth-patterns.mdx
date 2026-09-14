@@ -1,0 +1,138 @@
+---
+title: "JWT Authentication: Anatomy and Security Patterns"
+date: "2026-09-14"
+excerpt: "Understand how JWTs work under the hood (Header, Payload, Signature) and explore authorization strategies from basic single tokens to rolling refresh and versioning."
+tags: ["jwt", "security", "backend", "node", "architecture"]
+---
+
+## What is a JWT? (The Anatomy)
+
+A JSON Web Token (JWT) is a compact, URL-safe string used to securely transfer information between a client and a server. Visually, a JWT consists of three distinct parts separated by dots (`.`):
+
+`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`
+
+When unpacked, these three segments represent: **Header**, **Payload**, and **Signature**.
+
+```
+  HEADER                 PAYLOAD               SIGNATURE
+┌───────────┐         ┌───────────┐         ┌─────────────┐
+│ Algorithm │    .    │ User Data │    .    │ Verification│
+│ & Type    │         │ & Claims  │         │ Hash        │
+└───────────┘         └───────────┘         └─────────────┘
+```
+
+### 1. The Header
+The header declares the metadata of the token, specifically the hashing algorithm used to sign it (e.g., HS256, RS256) and the token type (`JWT`).
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+This JSON object is Base64URL-encoded to form the first segment of the token.
+
+### 2. The Payload
+The payload contains the **claims**—the actual data passed between parties (such as user identity, roles, and token expiration times). 
+
+```json
+{
+  "sub": "usr_948104",
+  "name": "Ammar",
+  "role": "admin",
+  "iat": 1789372800,
+  "exp": 1789376400
+}
+```
+Standard claim keys include:
+* `sub` (Subject): Identifies the entity (usually the User ID).
+* `iat` (Issued At): Unix timestamp marking when the token was created.
+* `exp` (Expiration): Unix timestamp marking when the token expires.
+
+> **Crucial Security Note:** The payload is Base64URL-encoded, **not encrypted**. Anyone who intercepts the token can decode and read its contents. Never place sensitive data like passwords, API keys, or credit card numbers inside a JWT payload.
+
+### 3. The Signature
+The signature guarantees that the token has not been altered or missed with in transit. 
+
+To create the signature, the backend takes the Base64URL-encoded header, the Base64URL-encoded payload, and a secret key stored on the server, running them all through the specified algorithm:
+
+```typescript
+// Pseudocode for signature creation
+const encodedHeader = base64UrlEncode(header);
+const encodedPayload = base64UrlEncode(payload);
+
+const signature = HMACSHA256(
+  `${encodedHeader}.${encodedPayload}`,
+  SERVER_SECRET_KEY
+);
+```
+
+When a client sends a JWT back to the server, the server recalculates the signature using its private secret. If a user tries to modify the payload (e.g., changing `"role": "user"` to `"role": "admin"`), the signatures will not match, and the request is rejected immediately.
+
+---
+
+## Authorization Patterns
+
+Understanding how JWTs are structured makes evaluating different implementation patterns straightforward.
+
+### 1. Standard Single JWT (Stateless Setup)
+The simplest setup issues a single token signed by the backend containing identity data and permissions.
+
+* **Flow:** Upon login, the server returns a JWT. The client attaches this token to the `Authorization: Bearer <token>` header for subsequent requests.
+* **Expiration:** Typically set for a medium duration (e.g., 7 to 30 days).
+* **Pros:** Entirely stateless; no database or cache lookup needed on incoming requests.
+* **Cons:** Immediate revocation is impossible. If stolen, an attacker retains access until the token expires naturally.
+
+### 2. Access Token + Refresh Token Pair
+To reduce the vulnerability window of a leaked token, authentication is divided into two tokens with different lifespans.
+
+* **Access Token:** Short-lived (e.g., 15 minutes). Used to request protected API resources.
+* **Refresh Token:** Long-lived (e.g., 7 to 30 days). Used strictly to request a new access token when the current one expires.
+* **Storage:** Access tokens live in memory, while refresh tokens are stored in an `httpOnly`, `Secure`, `SameSite` cookie to block XSS attacks.
+* **Pros:** If an access token leaks, the exposure window is limited to its short lifespan.
+
+### 3. Rolling Refresh Tokens (Token Rotation)
+Basic refresh tokens remain vulnerable if intercepted. Rolling refresh tokens enforce single-use mechanics.
+
+* **Flow:** Every time the client requests a new access token, the server issues both a **new Access Token** AND a **new Refresh Token**, invalidating the old refresh token.
+* **Reuse Detection:** If an attacker and a legitimate user try to reuse the same old refresh token, the server detects reuse, revokes the entire token family, and forces re-authentication across all devices.
+* **Pros:** Detects stolen credentials instantly and limits token replay attacks.
+
+### 4. Token Versioning (`tokenVersion` Pattern)
+Stateless JWTs make global session invalidation ("Log out of all devices", password changes) challenging. Token versioning introduces a light state check to solve this.
+
+* **Flow:**
+  1. A numeric `tokenVersion` field is stored in the database user record and embedded in the JWT payload.
+  2. During verification, the server checks if the payload's `tokenVersion` matches the current database record.
+  3. Incrementing `tokenVersion` in the database immediately invalidates all active tokens for that user.
+* **Pros:** Enables instant global revocation.
+* **Cons:** Requires a database/cache lookup per request or per refresh call.
+
+### 5. Token Blacklisting (JTI Tracking)
+For selective revocation of specific tokens without resetting all user sessions, blacklisting can be added.
+
+* **Flow:** Tokens are issued with a unique `jti` (JWT ID) claim. Upon explicit logout, the `jti` is pushed to a fast key-value store (like Redis) with a Time-To-Live (TTL) matching the token's remaining lifetime.
+* **Pros:** Enables granular single-device logouts while maintaining short-lived statelessness.
+* **Cons:** Requires maintaining active memory overhead in Redis to track blacklisted IDs until they expire.
+
+---
+
+## Comparison Matrix
+
+| Strategy | Revocation Control | Database / Cache Overhead | Complexity | Best For |
+| :--- | :--- | :--- | :--- | :--- |
+| **Basic Single JWT** | None (until expiry) | Zero | Low | Prototypes, low-risk APIs |
+| **Access + Refresh Pair** | Low (wait for short access expiry) | Minimal (only on refresh) | Medium | Standard web applications |
+| **Rolling Refresh Tokens** | High (automatic theft detection) | Low to Medium | High | Production APIs with strict security |
+| **Token Versioning** | Instant (global per user) | Fast lookup per request/refresh | Medium | Apps requiring "Log out everywhere" |
+| **Blacklisting (JTI)** | Instant (per token) | Fast lookup for revoked IDs | Medium | Granular per-device logout |
+
+---
+
+## Conclusion & Recommendations
+
+Choosing a JWT pattern depends on your application's security requirements:
+
+* For standard web apps, an **Access + Refresh Token** strategy balances security with low database overhead.
+* For higher-security APIs, combine **Rolling Refresh Tokens** with **Token Versioning** on the refresh route. This provides short-lived access, automated theft detection, and global revocation capabilities without querying the database on every standard API call.
+
