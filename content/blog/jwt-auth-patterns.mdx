@@ -9,17 +9,9 @@ tags: ["jwt", "security", "backend", "node", "architecture"]
 
 A JSON Web Token (JWT) is a compact, URL-safe string used to securely transfer information between a client and a server. Visually, a JWT consists of three distinct parts separated by dots (`.`):
 
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`
+`eyJhb6IkpXVCJ9.eyJzdM5MDIyfQ.SflKxwRJSM6POk6yJV_adQssw5c`
 
 When unpacked, these three segments represent: **Header**, **Payload**, and **Signature**.
-
-```
-  HEADER                 PAYLOAD               SIGNATURE
-┌───────────┐         ┌───────────┐         ┌─────────────┐
-│ Algorithm │    .    │ User Data │    .    │ Verification│
-│ & Type    │         │ & Claims  │         │ Hash        │
-└───────────┘         └───────────┘         └─────────────┘
-```
 
 ### 1. The Header
 The header declares the metadata of the token, specifically the hashing algorithm used to sign it (e.g., HS256, RS256) and the token type (`JWT`).
@@ -114,18 +106,6 @@ For selective revocation of specific tokens without resetting all user sessions,
 * **Flow:** Tokens are issued with a unique `jti` (JWT ID) claim. Upon explicit logout, the `jti` is pushed to a fast key-value store (like Redis) with a Time-To-Live (TTL) matching the token's remaining lifetime.
 * **Pros:** Enables granular single-device logouts while maintaining short-lived statelessness.
 * **Cons:** Requires maintaining active memory overhead in Redis to track blacklisted IDs until they expire.
-
----
-
-## Comparison Matrix
-
-| Strategy | Revocation Control | Database / Cache Overhead | Complexity | Best For |
-| :--- | :--- | :--- | :--- | :--- |
-| **Basic Single JWT** | None (until expiry) | Zero | Low | Prototypes, low-risk APIs |
-| **Access + Refresh Pair** | Low (wait for short access expiry) | Minimal (only on refresh) | Medium | Standard web applications |
-| **Rolling Refresh Tokens** | High (automatic theft detection) | Low to Medium | High | Production APIs with strict security |
-| **Token Versioning** | Instant (global per user) | Fast lookup per request/refresh | Medium | Apps requiring "Log out everywhere" |
-| **Blacklisting (JTI)** | Instant (per token) | Fast lookup for revoked IDs | Medium | Granular per-device logout |
 
 ---
 
